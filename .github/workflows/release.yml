@@ -5,20 +5,17 @@ on:
     branches:
       - main
       - master
-    # Only trigger the workflow if files in these paths are modified
     paths:
       - 'src/**'
       - 'build.gradle.kts'
       - 'settings.gradle.kts'
   
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
     
-    # Required permissions to create a release in your repository
     permissions:
       contents: write 
 
@@ -26,12 +23,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      # FIXED: Changed Java version from 17 to 21 to match your Gradle config
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17' # Adjust to 21 if you are using Java 21
+          java-version: '21' 
           distribution: 'temurin'
-          cache: 'gradle' # Speeds up future builds
+          cache: 'gradle'
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -42,7 +40,6 @@ jobs:
       - name: Find generated JAR file
         id: find_jar
         run: |
-          # Finds the compiled JAR file dynamically so we don't have to hardcode the version
           JAR_PATH=$(find build/libs -name "*.jar" | head -n 1)
           echo "Found JAR at: $JAR_PATH"
           echo "JAR_PATH=$JAR_PATH" >> $GITHUB_ENV
@@ -50,11 +47,13 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          # Creates an auto-incrementing version tag (e.g., v1.0.1, v1.0.2)
           tag_name: v1.0.${{ github.run_number }}
           name: "BurpExpo Release v1.0.${{ github.run_number }}"
           body: |
             Automated build triggered by a code update.
+            
+            **Changes:**
+            - Automatically compiled latest `src` folder.
           files: ${{ env.JAR_PATH }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

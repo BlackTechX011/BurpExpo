@@ -47,7 +47,7 @@ Whether you need to export an entire proxy history to feed into an AI/LLM for an
     *   **Include/Exclude Hosts**: Target specific domains or ignore noisy analytics/tracking URLs.
     *   **HTTP Methods & Status Codes**: Filter by specific methods (`GET`, `POST`) or status codes (e.g., `200`, `4xx`, `5xx`).
     *   **Extension Filtering**: Automatically drop static assets (`.css`, `.js`, `.png`, etc.).
-*   ** Organized File Structure**: Automatically creates hierarchical directories based on the target host (`Session_Date/targets/example.com/data/`).
+*   **Organized File Structure**: Automatically creates hierarchical directories based on the target host (`Session_Date/targets/example.com/data/`).
 
 ---
 

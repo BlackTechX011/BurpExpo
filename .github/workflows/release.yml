@@ -50,10 +50,7 @@ jobs:
           tag_name: v1.0.${{ github.run_number }}
           name: "BurpExpo Release v1.0.${{ github.run_number }}"
           body: |
-            Automated build triggered by a code update.
-            
-            **Changes:**
-            - Automatically compiled latest `src` folder.
+            Automated build.
           files: ${{ env.JAR_PATH }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

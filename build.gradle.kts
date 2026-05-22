@@ -22,6 +22,6 @@ tasks.named<Jar>("jar") {
     from(configurations.runtimeClasspath.get().filterNot { it.isDirectory }.map { zipTree(it) })
     
     manifest {
-        attributes["Burp-Extension-Class"] = "com.burp.llmexporter.MainExtension"
+        attributes["Burp-Extension-Class"] = "com.burp.burpexpo.MainExtension"
     }
 }
